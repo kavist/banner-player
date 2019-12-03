@@ -1,0 +1,5 @@
+.cache/
+node_modules/
+sq*/
+*.html
+.DS_Store
