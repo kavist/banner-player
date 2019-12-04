@@ -5,6 +5,29 @@ import { Layer } from 'konva/lib/Layer';
 import { Image } from 'konva/lib/shapes/Image';
 import { Tween } from 'konva/lib/Tween';
 
+// Thanks to David Walsh (https://davidwalsh.name/javascript-debounce-function)
+function debounce(func, wait, immediate) {
+  var timeout;
+
+  return function executedFunction() {
+    var context = this;
+    var args = arguments;
+
+    var later = function () {
+      timeout = null;
+      if (!immediate) func.apply(context, args);
+    };
+
+    var callNow = immediate && !timeout;
+
+    clearTimeout(timeout);
+
+    timeout = setTimeout(later, wait);
+
+    if (callNow) func.apply(context, args);
+  };
+};
+
 class BannerPlayer {
   images = [];
   firstPlay = true;
@@ -48,7 +71,7 @@ class BannerPlayer {
       imgObj.src = img.src;
     });
 
-    window.onresize = this.windowResized();
+    window.onresize = debounce(this.windowResized.bind(this), 250);
   }
 
   get totalImage() {

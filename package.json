@@ -2,7 +2,7 @@
   "name": "@kavist/banner-player",
   "version": "1.0.0",
   "description": "A simple webcanvas slideshow for advertisement banner.",
-  "main": "banner-player.js",
+  "main": "dist/banner-player.js",
   "dependencies": {
     "konva": "^4.0.18"
   },
@@ -14,9 +14,11 @@
     "parcel-plugin-clean-dist": "0.0.6"
   },
   "scripts": {
-    "prebuild": "rm -rf dist/",
+    "prebuild": "rm -rf dist/*",
     "watch": "npx parcel watch --global BannerPlayer banner-player.js",
-    "build": "npx parcel build --experimental-scope-hoisting --no-source-maps --global BannerPlayer banner-player.js"
+    "build": "npm run build:normal && npm run build:minify",
+    "build:minify": "npx parcel build --experimental-scope-hoisting --no-source-maps --global BannerPlayer --out-dir .temp --out-file banner-player.min.js banner-player.js && mv .temp/banner-player.min.js dist && rm -rf .temp",
+    "build:normal": "npx parcel build --experimental-scope-hoisting --no-source-maps --global BannerPlayer --out-dir .temp --no-minify banner-player.js && mv .temp/banner-player.js dist && rm -rf .temp"
   },
   "author": "Ian Mustafa <mail@ianmustafa.com>",
   "license": "MIT",
