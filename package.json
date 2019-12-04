@@ -1,6 +1,6 @@
 {
   "name": "@kavist/banner-player",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "A simple webcanvas slideshow for advertisement banner.",
   "main": "dist/banner-player.js",
   "dependencies": {
